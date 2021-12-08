@@ -20,7 +20,7 @@ def create_order():
     return order_schema.jsonify(new_order), 201
 
 
-# Done
+# Done!
 @order.route("/add/<order_id>", methods=["POST"])
 def add_item(order_id):
     descricao = request.json["descricao"]
@@ -35,9 +35,10 @@ def add_item(order_id):
     return item_schema.jsonify(new_item), 201
 
 
+# Done!
 @order.route("/remove/<order_id>", methods=["DELETE"])
 def remove_item(order_id):
-    item = Item.query.filter_by(order_id=order_id)
+    item = Item.query.filter_by(order_id=order_id).first()
     item_schema = ItemSchema()
 
     current_app.db.session.delete(item)
@@ -46,6 +47,7 @@ def remove_item(order_id):
     return item_schema.jsonify(item)
 
 
+# Done!
 @order.route("/delete/<order_id>", methods=["DELETE"])
 def cancel_order(order_id):
     order = Order.query.get(order_id)
@@ -56,9 +58,10 @@ def cancel_order(order_id):
     return order_schema.jsonify(order)
 
 
+# Done!
 @order.route("/items/<order_id>", methods=["GET"])
 def get_order_items(order_id):
-    items = Item.query.filter(Item.order_id.in_(order_id)).all()
+    items = Item.query.filter_by(order_id=order_id).all()
 
     item_schema = ItemSchema(many=True)
     result = item_schema.dump(items)
