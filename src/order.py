@@ -39,23 +39,31 @@ def add_item(order_id):
 @order.route("/remove/<order_id>", methods=["DELETE"])
 def remove_item(order_id):
     item = Item.query.filter_by(order_id=order_id).first()
+
+    if not item:
+        return jsonify({"message": "Item not found."}), 404
+
     item_schema = ItemSchema()
 
     current_app.db.session.delete(item)
     current_app.db.session.commit()
 
-    return item_schema.jsonify(item)
+    return item_schema.jsonify(item), 200
 
 
 # Done!
 @order.route("/delete/<order_id>", methods=["DELETE"])
 def cancel_order(order_id):
     order = Order.query.get(order_id)
+
+    if not order:
+        return jsonify({"message": "Order not found."}), 404
+
     order_schema = OrderSchema()
 
     current_app.db.session.delete(order)
     current_app.db.session.commit()
-    return order_schema.jsonify(order)
+    return order_schema.jsonify(order), 200
 
 
 # Done!
@@ -63,7 +71,10 @@ def cancel_order(order_id):
 def get_order_items(order_id):
     items = Item.query.filter_by(order_id=order_id).all()
 
+    if not items:
+        return jsonify({"message": "Items not found."})
+
     item_schema = ItemSchema(many=True)
     result = item_schema.dump(items)
 
-    return jsonify(result)
+    return jsonify(result), 200
