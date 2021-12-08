@@ -5,7 +5,7 @@ from .schemas import OrderSchema, ItemSchema
 
 order = Blueprint("order", __name__, url_prefix="/order")
 
-
+# Done!
 @order.route("/create", methods=["POST"])
 def create_order():
     client_id = request.json["client_id"]
@@ -20,6 +20,7 @@ def create_order():
     return order_schema.jsonify(new_order), 201
 
 
+# Done
 @order.route("/add/<order_id>", methods=["POST"])
 def add_item(order_id):
     descricao = request.json["descricao"]

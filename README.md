@@ -38,7 +38,7 @@ Variables to define
 
 ```
 export SECRET_KEY=dev
-export SQLALCHEMY_DATABASE_URI= connection_string_heres
+export SQLALCHEMY_DATABASE_URI= connection_string_here
 export SQLALCHEMY_TRACK_MODIFICATIONS=False
 ```
 
