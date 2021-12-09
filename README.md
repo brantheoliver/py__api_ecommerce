@@ -15,7 +15,7 @@ with pipenv:
 ```
 $ pip3 install pipenv
 $ pipenv --three
-$ pipenv sync
+(py__api_ecommerce)$ pipenv sync
 ```
 
 with vitualenv:
@@ -25,7 +25,7 @@ $ pip3 install virtualenv
 $ virtualenv venv
 $ source venv/bin/activate
 
-$ pip3 install -r requirements.txt
+(venv)$ pip3 install -r requirements.txt
 ```
 
 # .env file

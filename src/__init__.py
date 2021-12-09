@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_migrate import Migrate
 
 import os
@@ -22,5 +22,17 @@ def create_app():
 
     app.register_blueprint(order)
     app.register_blueprint(item)
+
+    @app.errorhandler(400)
+    def handle_400_error(e):
+        return jsonify({"error": "ERROR 400: Bad Request."}), 400
+
+    @app.errorhandler(404)
+    def handle_404_error(e):
+        return jsonify({"error": "ERROR 404: Not found."}), 404
+
+    @app.errorhandler(500)
+    def handle_500_error(e):
+        return jsonify({"error": "ERROR 500: Internal Server Error."}), 500
 
     return app
